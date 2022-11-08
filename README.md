@@ -14,3 +14,27 @@ libraries. Features include:
 
 
 At this point this has only been tested in MacOS 12.
+
+Library can be added to a bazel project by adding the following snippet to WORKSPACE:
+```
+load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+git_repository(
+  name = "mdl_cpp_template",
+  remote = "https://github.com/mardlucca/cpp-template.git",
+  tag = "22.11.0-1"
+)
+```
+And can be used by other rules, as seen in this BUILD file snippet.
+
+```
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+  name = "main",
+  srcs = ["src/main/cc/main.cc"],
+  deps = [
+      "@mdl_cpp_template//:lib",
+  ]
+)
+```
