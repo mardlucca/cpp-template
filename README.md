@@ -2,7 +2,7 @@
 
 This is a sample C++ Bazel project that can be used as a Git template repo for creating simple C++ 
 libraries. Features include:
-* Default .bazelrc configured for C++17 support.
+* Default .bazelrc configured for C++20 support.
 * Google test support (see example under src/test/cc)
 * Standardized folder structure (src/main/h, src/main/cc, src/test/cc, src/test/resources)
 * Support for "test resource" files (under src/test/resources).
@@ -22,7 +22,7 @@ load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 git_repository(
   name = "mdl_cpp_template",
   remote = "https://github.com/mardlucca/cpp-template.git",
-  tag = "22.11.0-1"
+  tag = "22.11.1-1"
 )
 ```
 And can be used by other rules, as seen in this BUILD file snippet.
