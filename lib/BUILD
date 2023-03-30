@@ -26,14 +26,38 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+load("@rules_cc//cc:defs.bzl", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
 package(default_visibility = ["//visibility:public"])
+
+cc_library(
+  name = "mdl_cpp_template",
+  srcs = glob(["src/lib/cc/**/*.cc", "src/lib/h/**/*.h"]),
+  hdrs = glob(["includes/**/*.h"]),
+  includes = [ "includes" ],
+  visibility = ["//visibility:public"]
+)
 
 alias(
   name = "lib",
-  actual = "//lib:lib"
+  actual = ":mdl_cpp_template"
 )
 
-test_suite(
-    name = "tests",
-    tests = ["//lib:tests"],
+cc_test(
+  name = "tests", 
+  size = "small",
+  srcs = glob(["src/test/cc/**/*.cc"]),
+  deps = [
+    "@com_google_googletest//:gtest_main",
+    "//:lib"
+  ],
+  data = [ "test_resources" ]
+)
+
+filegroup(
+  name = "test_resources",
+  srcs = glob([
+      "src/test/resources/**/*.*"
+  ]),
 )
